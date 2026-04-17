@@ -1,8 +1,8 @@
 -- ==========================================
--- Test V75
+-- Test V217
 -- ==========================================
 
-local version = "2.1.7"
+local version = "2.1.8"
 
 repeat task.wait() until game:IsLoaded()
 
@@ -66,6 +66,7 @@ local Settings = {
     },
     Setting = {
         Delay = 6,
+		ProximityPrompt = false,
         Highlight = true,
         Name = true,
         Distance = true,
@@ -507,6 +508,51 @@ Main:Toggle({
     end
 })
 
+local ProximityCache = {}
+
+local function SetPrompt(v)
+    if v:IsA("ProximityPrompt") then
+        ProximityCache[v] = v.HoldDuration
+        v.HoldDuration = 0.5
+    end
+end
+
+local function ResetPrompt()
+    for v, old in pairs(ProximityCache) do
+        if v and v.Parent then
+            v.HoldDuration = old
+        end
+    end
+    table.clear(ProximityCache)
+end
+
+Main:Section({ Title = "Main Miscellaneous", Icon = "crown" })
+
+Main:Toggle({
+    Title = "Proximity Prompt (Instant)",
+    Desc = "Set Hold Duration to 0.5 sec",
+    Value = false,
+    Callback = function(state)
+        Settings.Setting.ProximityPrompt = state
+
+        if state then
+            -- Apply กับของที่มีอยู่แล้ว
+            for _, v in ipairs(W:GetDescendants()) do
+                SetPrompt(v)
+            end
+
+            -- Apply กับของใหม่
+            ProximityConnection = W.DescendantAdded:Connect(SetPrompt)
+        else
+            -- Reset กลับ
+            if ProximityConnection then
+                ProximityConnection:Disconnect()
+            end
+            ResetPrompt()
+        end
+    end
+})
+
 -- ================= BYPASS ANTI CHEAT =================
 task.spawn(function()
     local mt = getrawmetatable(game)
@@ -648,7 +694,7 @@ Auto:Toggle({
 })
 
 Auto:Toggle({
-    Title = "Auto Generator (Instance)",
+    Title = "Auto Generator (Instant)",
     Desc = "Automatically fixing Generator",
     Value = false,
     Callback = function(v) Settings.Auto.GeneratorInstance = v end
