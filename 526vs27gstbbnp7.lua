@@ -1,5 +1,5 @@
 -- ==========================================
--- Test V572
+-- Test V574
 -- ==========================================
 
 local version = "2.1.9"
@@ -112,7 +112,7 @@ local Window = WindUI:CreateWindow({
     Icon = "rbxassetid://104487529937663",
     Author = "Bite by Night | " .. userversion,
     Folder = "DYHUB_BBN",
-    Size = UDim2.fromOffset(550, 400),
+    Size = UDim2.fromOffset(580, 430),
     Transparent = true,
     Theme = "Dark",
     BackgroundImageTransparency = 0.8,
@@ -1314,6 +1314,7 @@ Auto:Slider({
     end
 })
 
+--[[
 Auto:Slider({
     Title = "Prediction Delay",
     Desc = "Block before hit (lower = faster)",
@@ -1321,7 +1322,8 @@ Auto:Slider({
     Callback = function(v)
         AutoBlock.PredictionDelay = v
     end
-})
+}) 
+]]
 
 Auto:Toggle({
     Title = "Auto Block",
