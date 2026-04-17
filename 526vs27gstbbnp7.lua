@@ -1,8 +1,8 @@
 -- ==========================================
--- Test V571
+-- Test V572
 -- ==========================================
 
-local version = "2.1.8"
+local version = "2.1.9"
 
 repeat task.wait() until game:IsLoaded()
 
@@ -51,7 +51,7 @@ local Settings = {
         BasicAttack = 30
     },
     Auto = {
-	    AutoParry = false,
+	    Parry = false,
         Escape = false,
         Shaking = false,
         Barricade = false,
@@ -1031,8 +1031,313 @@ Aimbot:Toggle({
 
 })
 --]]
+local AutoBlock = {
+    Enabled = false,
+    Connection = nil,
+
+    MinDistance = 20,
+    ThrowDistance = 80,
+
+    Cooldown = 0.25,
+    PredictionDelay = 0.08, -- 🔥 delay ก่อน block (ปรับได้)
+
+    CurrentKiller = nil,
+    KillerHRP = nil,
+
+    SoundHooks = {},
+    ActiveSounds = {},
+    SoundCooldowns = {},
+    AnimCooldowns = {},
+
+    LastBlockTime = 0,
+
+    ThrowAnimations = {
+        ["133752270724243"] = true
+    },
+
+    ChargeAnimations = {
+        ["89272231996541"] = true,
+        ["71147082224885"] = true
+    },
+
+    AttackSounds = {
+        ["120953752337955"] = true,
+        ["98744302864116"] = true,
+        ["110440119952050"] = true,
+        ["115508938791896"] = true,
+        ["91318511389137"] = true,
+        ["113286736276764"] = true
+    }
+}
+
+--// ================= UTILS =================
+
+function AutoBlock.GetHRP(char)
+    return char and char:FindFirstChild("HumanoidRootPart")
+end
+
+function AutoBlock.IsFacing(killerHRP, myHRP)
+    local look = killerHRP.CFrame.LookVector
+    local dir = (myHRP.Position - killerHRP.Position).Unit
+    return look:Dot(dir) > 0.65 -- 🔥 ปรับ FOV ฉลาดขึ้น
+end
+
+function AutoBlock.Distance(a, b)
+    return (a.Position - b.Position).Magnitude
+end
+
+--// ================= BLOCK =================
+
+function AutoBlock.ExecuteBlock()
+    local now = tick()
+    if now - AutoBlock.LastBlockTime < AutoBlock.Cooldown then return end
+    AutoBlock.LastBlockTime = now
+
+    task.delay(AutoBlock.PredictionDelay, function()
+        local RS = game:GetService("ReplicatedStorage")
+        local r = RS:FindFirstChild("Modules")
+        if r then
+            r = r:FindFirstChild("Warp")
+            if r then
+                r = r:FindFirstChild("Index")
+                if r then
+                    r = r:FindFirstChild("Event")
+                    if r then
+                        r = r:FindFirstChild("Reliable")
+                        if r then
+                            r:FireServer(
+                                buffer.fromstring("\7"),
+                                buffer.fromstring("\254\1\0\254\2\0\6\7Ability\1\2")
+                            )
+                        end
+                    end
+                end
+            end
+        end
+    end)
+end
+
+--// ================= SOUND =================
+
+function AutoBlock.ExtractId(sound)
+    local s = tostring(sound.SoundId)
+    return s:match("%d+")
+end
+
+function AutoBlock.HookSound(sound)
+    if AutoBlock.SoundHooks[sound] then return end
+
+    local function trigger()
+        local id = AutoBlock.ExtractId(sound)
+        if not id or not AutoBlock.AttackSounds[id] then return end
+        AutoBlock.ActiveSounds[sound] = tick()
+    end
+
+    local c1 = sound.Played:Connect(trigger)
+    local c2 = sound:GetPropertyChangedSignal("IsPlaying"):Connect(function()
+        if sound.IsPlaying then trigger() end
+    end)
+
+    local c3 = sound.Destroying:Connect(function()
+        if c1 then c1:Disconnect() end
+        if c2 then c2:Disconnect() end
+        if c3 then c3:Disconnect() end
+
+        AutoBlock.SoundHooks[sound] = nil
+        AutoBlock.ActiveSounds[sound] = nil
+    end)
+
+    AutoBlock.SoundHooks[sound] = {c1, c2, c3}
+end
+
+function AutoBlock.HookKiller(character)
+    local hrp = AutoBlock.GetHRP(character)
+    if not hrp then return end
+
+    for _, v in ipairs(hrp:GetChildren()) do
+        if v:IsA("Sound") then
+            AutoBlock.HookSound(v)
+        end
+    end
+
+    hrp.ChildAdded:Connect(function(v)
+        if v:IsA("Sound") then
+            AutoBlock.HookSound(v)
+        end
+    end)
+end
+
+--// ================= KILLER =================
+
+function AutoBlock.UpdateKiller()
+    local players = workspace:FindFirstChild("PLAYERS")
+    if not players then return end
+
+    local killer = players:FindFirstChild("KILLER")
+    if not killer then return end
+
+    for _, v in ipairs(killer:GetChildren()) do
+        if v:IsA("Model") then
+            local hrp = AutoBlock.GetHRP(v)
+            if hrp then
+                AutoBlock.CurrentKiller = v
+                AutoBlock.KillerHRP = hrp
+                AutoBlock.HookKiller(v)
+                return
+            end
+        end
+    end
+end
+
+--// ================= ANIMATION =================
+
+function AutoBlock.CheckAnimation(myHRP)
+    local killer = AutoBlock.CurrentKiller
+    local hrp = AutoBlock.KillerHRP
+    if not killer or not hrp then return end
+
+    local dist = AutoBlock.Distance(hrp, myHRP)
+    local hum = killer:FindFirstChildOfClass("Humanoid")
+    if not hum then return end
+
+    for _, track in pairs(hum:GetPlayingAnimationTracks()) do
+        if track.IsPlaying and track.Animation then
+            local id = track.Animation.AnimationId:match("%d+")
+            if not id then continue end
+
+            if AutoBlock.ThrowAnimations[id] and dist <= AutoBlock.ThrowDistance then
+                if AutoBlock.IsFacing(hrp, myHRP) then
+                    AutoBlock.ExecuteBlock()
+                    return true
+                end
+            end
+
+            if AutoBlock.ChargeAnimations[id] and dist <= AutoBlock.MinDistance then
+                if AutoBlock.IsFacing(hrp, myHRP) then
+                    AutoBlock.ExecuteBlock()
+                    return true
+                end
+            end
+        end
+    end
+end
+
+--// ================= SOUND CHECK =================
+
+function AutoBlock.CheckSound(myHRP)
+    local hrp = AutoBlock.KillerHRP
+    if not hrp then return end
+
+    local dist = AutoBlock.Distance(hrp, myHRP)
+
+    for sound, t in pairs(AutoBlock.ActiveSounds) do
+        if tick() - t > 1 then
+            AutoBlock.ActiveSounds[sound] = nil
+            continue
+        end
+
+        if dist <= AutoBlock.MinDistance and AutoBlock.IsFacing(hrp, myHRP) then
+            AutoBlock.ExecuteBlock()
+            return true
+        end
+    end
+end
+
+--// ================= MAIN =================
+
+function AutoBlock.Start()
+    AutoBlock.Enabled = true
+    AutoBlock.UpdateKiller()
+
+    if AutoBlock.Connection then
+        AutoBlock.Connection:Disconnect()
+    end
+
+    AutoBlock.Connection = game:GetService("RunService").Heartbeat:Connect(function()
+        if not AutoBlock.Enabled then return end
+        if not Player.Character then return end
+
+        if GetPlayerStyle and GetPlayerStyle() ~= "fighter" then return end
+
+        local myHRP = AutoBlock.GetHRP(Player.Character)
+        if not myHRP then return end
+
+        if not AutoBlock.CurrentKiller then
+            AutoBlock.UpdateKiller()
+            return
+        end
+
+        if AutoBlock.CheckAnimation(myHRP) then return end
+        if AutoBlock.CheckSound(myHRP) then return end
+    end)
+end
+
+function AutoBlock.Stop()
+    AutoBlock.Enabled = false
+
+    if AutoBlock.Connection then
+        AutoBlock.Connection:Disconnect()
+        AutoBlock.Connection = nil
+    end
+
+    for _, conns in pairs(AutoBlock.SoundHooks) do
+        for _, c in pairs(conns) do
+            if c then c:Disconnect() end
+        end
+    end
+
+    AutoBlock.SoundHooks = {}
+    AutoBlock.ActiveSounds = {}
+end
+
 Auto:Section({ Title = "Auto Parry", Icon = "swords" })
 
+--// ================= UI =================
+
+Auto:Slider({
+    Title = "Block Attack Range",
+    Desc = "Distance for normal attacks",
+    Value = { Min = 5, Max = 40, Default = 20 },
+    Callback = function(v)
+        Settings.Auto.Parry = v
+        AutoBlock.SetMinDistance = v
+        AutoBlock.MinDistance = v
+    end
+})
+
+Auto:Slider({
+    Title = "Block Throw Range",
+    Desc = "Distance for throw attacks",
+    Value = { Min = 20, Max = 120, Default = 80 },
+    Callback = function(v)
+        AutoBlock.ThrowDistance = v
+    end
+})
+
+Auto:Slider({
+    Title = "Prediction Delay",
+    Desc = "Block before hit (lower = faster)",
+    Value = { Min = 0, Max = 0.2, Default = 0.08 },
+    Callback = function(v)
+        AutoBlock.PredictionDelay = v
+    end
+})
+
+Auto:Toggle({
+    Title = "Auto Block",
+    Desc = "Automatically block attacks",
+    Value = false,
+    Callback = function(v)
+        if v then
+            AutoBlock.Start()
+        else
+            AutoBlock.Stop()
+        end
+    end
+})
+
+
+--[[
 local attackAnimIds = {
     "rbxassetid://70869035406359",
     "rbxassetid://106673226682917",
@@ -1136,6 +1441,7 @@ Auto:Toggle({
         end
     end
 })
+--]]
 
 --// Services
 local Players = game:GetService("Players")
