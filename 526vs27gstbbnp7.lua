@@ -1,5 +1,5 @@
 -- ==========================================
--- Test V217
+-- Test V571
 -- ==========================================
 
 local version = "2.1.8"
@@ -1797,11 +1797,12 @@ InfoTab:Section({ Title = "Lasted Update", TextXAlignment = "Center", TextSize =
 InfoTab:Divider()
 
 InfoTab:Paragraph({
-    Title = "Update: 04/18/2026",
-    Desc = "- [ Fixed ] Esp Core \n- [ Added ] Auto Parry \n- [ Added ] Auto Shaking NL/L \n- [ Added ] Anti Trap \n- [ Added ] Infinite Stamina/Dodges \n- [ Reworked ] Auto Escape",
+    Title = "Update: 04/18/2026 | Time: 02:33",
+    Desc = "- [ Fixed ] Esp Core \n- [ Added ] Anti Trap \n- [ Added ] Auto Parry \n- [ Added ] PXPrompt Instant \n- [ Added ] Auto Shaking NL/L \n- [ Added ] Auto Generator Instant \n- [ Added ] Infinite Stamina/Dodges \n- [ Reworked ] Auto Escape",
     Image = "rbxassetid://104487529937663",
     ImageSize = 30,
 })
+
 InfoTab:Divider()
 InfoTab:Section({ Title = "Discord Server", TextXAlignment = "Center", TextSize = 17 })
 InfoTab:Divider()
