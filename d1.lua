@@ -1,4 +1,4 @@
--- 231
+-- 2333
 
 if _G.BBNScriptLoaded then
     warn("[BBN] Script was already executed!")
@@ -15,13 +15,6 @@ game:GetService("Players").LocalPlayer.Idled:Connect(function()
     task.wait(67)
     vu:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
 end)
-
-if setfpscap then
-    setfpscap(1000000)
-    SafeNotify("<font color='#FF0000'>[ DYHUB ]</font> — Anti AFK Enabled & FPS Unlocked!", 5)
-else
-    SafeNotify("<font color='#FF0000'>[ DYHUB ]</font> — Anti AFK Enabled but setfpscap is missing.", 5)
-end
 
 local ConfigWasLoaded = false
 if Menu.Config and Menu.Config.setCurrentConfig then
