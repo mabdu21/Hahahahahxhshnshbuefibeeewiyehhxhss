@@ -1,20 +1,14 @@
--- 2333
-
 if _G.BBNScriptLoaded then
     warn("[BBN] Script was already executed!")
     return
 end
 _G.BBNScriptLoaded = true
 
+-- 22
+
 local UI_URL = "https://raw.githubusercontent.com/mabdu21/Hahahahahxhshnshbuefibeeewiyehhxhss/refs/heads/main/lib.lua"
 local Menu = loadstring(game:HttpGet(UI_URL))()
 
-local vu = game:GetService("VirtualUser")
-game:GetService("Players").LocalPlayer.Idled:Connect(function()
-    vu:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
-    task.wait(67)
-    vu:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
-end)
 
 local ConfigWasLoaded = false
 if Menu.Config and Menu.Config.setCurrentConfig then
@@ -164,161 +158,6 @@ function AutoBarricade.Stop()
     end
 end
 
-local AntiCheat = { 
-    Enabled = true, 
-    Connection = nil
-}
-
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local Player = Players.LocalPlayer
-
-function BypassAntiCheat.Start()
-    BypassAntiCheat.Enabled = true
-    SafeNotify("[ Bypass AntiCheat ] Enabled!", 2)
-
-    if BypassAntiCheat.Connection then
-        BypassAntiCheat.Connection:Disconnect()
-    end
-
-    BypassAntiCheat.Connection = RunService.Heartbeat:Connect(function()
-        local mt = getrawmetatable(game)
-        if not mt then return end
-
-        setreadonly(mt, false)
-
-        local oldNamecall = mt.__namecall
-        local oldKick
-
-        -- hook Kick (กัน Local Kick เท่านั้น)
-        oldKick = hookfunction(game.Players.LocalPlayer.Kick, function(...)
-            if Settings.Auto.AC then
-                warn("[AC] Blocked Kick attempt")
-                return
-            end
-            return oldKick(...)
-        end)
-
-        -- keywords ขั้นสูง
-        local blacklist = {"anti","cheat","kick","ban","detect","flag","log","report","ac","secure","check","verify","validation","validate","scan","monitor","watch","track","guard","shield","protection","protect","security","safety","integrity","auth","authentication","authorize","logger","logging","logdata","webhook","discordhook","httplog","remotelog","hook","hooklog","hookdata","hookevent","hookcheat","logcheat","cheatlog","reporter","reportlog","ticket","tickets","supportticket","mod","moderation","adminlog","stafflog","analytics","metrics","metriclog","tracker","tracking","tracklog","eventlog","datalog","datatrack","flagged","flaglog","detectlog","detectionlog","http","https","requestlog","postlog","apilog","api","endpoint","database","db","datastore","storelog","save","savelog","audit","auditlog","journal","history","historylog","monitorlog","watchlog","suspicious","exploit","tamper","abuse","violation","illegal","servercheck","clientcheck","sanity","heartbeat","pingcheck","sync","hidden","core","internal","system","service","handler","manager","controller","module","main","init","acb","anticheat","acsys","sec","prot","guarded"}
-
-        local function isSuspicious(remote, method, args)
-            local name = tostring(remote):lower()
-
-            -- เช็คชื่อ
-            for _, v in ipairs(blacklist) do
-                if name:find(v) then
-                    return true
-                end
-            end
-
-            -- เช็ค argument
-            for _, v in ipairs(args) do
-                if typeof(v) == "string" then
-                    local l = v:lower()
-                    for _, b in ipairs(blacklist) do
-                        if l:find(b) then
-                            return true
-                        end
-                    end
-                end
-            end
-
-            return false
-        end
-
-        mt.__namecall = newcclosure(function(self, ...)
-            local method = getnamecallmethod()
-            local args = {...}
-
-            if Settings.Auto.AC then
-                if method == "FireServer" or method == "InvokeServer" then
-                    if isSuspicious(self, method, args) then
-                        warn("[AC] Blocked Remote:", self)
-                        return nil
-                    end
-                end
-            end
-
-            return oldNamecall(self, ...)
-        end)
-
-        setreadonly(mt, true)
-    end)
-end
-
-function BypassAntiCheat.Stop()
-    BypassAntiCheat.Enabled = false
-    SafeNotify("[ Bypass AntiCheat ] Disabled!", 2)
-
-    if BypassAntiCheat.Connection then
-        BypassAntiCheat.Connection:Disconnect()
-    end
-end
-
-local AutoShake2 = {
-    Enabled = false,
-    Connection = nil,
-    GuiConnection = nil,
-    ShakingLoop = nil,
-    time = 0.3
-}
-
-function AutoShake2.Start()
-    AutoShake2.Enabled = true
-    SafeNotify("[ Auto Shake ] Enabled!", 2)
-
-    local player = game:GetService("Players").LocalPlayer
-    local playerGui = player:WaitForChild("PlayerGui")
-
-    -- กันซ้ำ
-    if AutoShake2.Connection then
-        AutoShake2.Connection:Disconnect()
-    end
-
-    -- 🔥 ดัก GUI โผล่
-    AutoShake2.GuiConnection = playerGui.ChildAdded:Connect(function(child)
-        if child.Name == "WireyesUI" then
-            local remote = child:FindFirstChild("WireyesClient")
-            if remote and remote:FindFirstChild("WireyesEvent") then
-                remote.WireyesEvent:FireServer("TakeOff", 1775926755.247102)
-            end
-        end
-    end)
-
-    -- 🔁 Loop
-    AutoShake2.ShakingLoop = task.spawn(function()
-        while AutoShake2.Enabled do
-            local gui = playerGui:FindFirstChild("WireyesUI")
-
-            if gui then
-                local remote = gui:FindFirstChild("WireyesClient")
-                if remote and remote:FindFirstChild("WireyesEvent") then
-                    remote.WireyesEvent:FireServer("TakeOff", 1775926755.247102)
-                end
-            end
-
-            task.wait(AutoShake2.time)
-        end
-    end)
-end
-
-function AutoShake2.Stop()
-    AutoShake2.Enabled = false
-    SafeNotify("[ Auto Shake ] Disabled!", 2)
-
-    if AutoShake2.Connection then
-        AutoShake2.Connection:Disconnect()
-        AutoShake2.Connection = nil
-    end
-
-    if AutoShake2.GuiConnection then
-        AutoShake2.GuiConnection:Disconnect()
-        AutoShake2.GuiConnection = nil
-    end
-
-    AutoShake2.ShakingLoop = nil
-end
 
 local AutoShake = {
     Enabled = false,
@@ -643,114 +482,6 @@ function InfinityStamina.IsInGame()
     end
     
     return false
-end
-
-local InfinityStamina2 = {
-    Enabled = false,
-    Connection = nil
-}
-
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local Player = Players.LocalPlayer
-
-function InfinityStamina2.Start()
-    InfinityStamina2.Enabled = true
-    SafeNotify("[ Infinity Stamina ] Enabled!", 2)
-
-    if InfinityStamina2.Connection then
-        InfinityStamina2.Connection:Disconnect()
-    end
-
-    InfinityStamina2.Connection = RunService.Heartbeat:Connect(function()
-        if not InfinityStamina2.Enabled then return end
-        if not Player.Character then return end
-
-        if InfinityStamina2.IsInGame and InfinityStamina2.IsInGame() then
-            Player.Character:SetAttribute("Stamina", 100)
-        end
-    end)
-end
-
-function InfinityStamina2.Stop()
-    InfinityStamina2.Enabled = false
-    SafeNotify("[ Infinity Stamina ] Disabled!", 2)
-
-    if InfinityStamina2.Connection then
-        InfinityStamina2.Connection:Disconnect()
-        InfinityStamina2.Connection = nil
-    end
-end
-
-local AutoEscape = {
-    Enabled = false,
-    Connection = nil
-}
-
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local Player = Players.LocalPlayer
-
-function AutoEscape.Start()
-    AutoEscape.Enabled = true
-    SafeNotify("[ Auto Escape ] Enabled!", 2)
-
-    if AutoEscape.Connection then
-        AutoEscape.Connection:Disconnect()
-    end
-
-    AutoEscape.Connection = RunService.Heartbeat:Connect(function()
-        local player = game:GetService("Players").LocalPlayer
-        local teleported = false
-
-        while Settings.Auto.Escape do
-            task.wait(1.25)
-
-            if teleported then continue end
-
-            local char = player.Character
-            local root = char and char:FindFirstChild("HumanoidRootPart")
-            local hum = char and char:FindFirstChild("Humanoid")
-
-            local canEscape = workspace.GAME:FindFirstChild("CAN_ESCAPE")
-            if not root or not (canEscape and canEscape.Value) then continue end
-            if char.Parent ~= workspace.PLAYERS.ALIVE then continue end
-
-            local map = workspace.MAPS:FindFirstChild("GAME MAP")
-            local escapes = map and map:FindFirstChild("Escapes")
-
-            if escapes then
-                for _, part in pairs(escapes:GetChildren()) do
-                    local highlight = part:FindFirstChildOfClass("Highlight")
-
-                    if part:IsA("BasePart") and part:GetAttribute("Enabled") and (highlight and highlight.Enabled) then
-                        teleported = true
-
-                        root.Anchored = true
-                        char:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 3, 0))
-
-                        task.wait(1)
-                        if root then root.Anchored = false end
-
-                        task.delay(10, function()
-                            teleported = false
-                        end)
-
-                        break
-                    end
-                end
-            end
-        end
-    end)
-end
-
-function AutoEscape.Stop()
-    AutoEscape.Enabled = false
-    SafeNotify("[ Auto Escape ] Disabled!", 2)
-
-    if AutoEscape.Connection then
-        AutoEscape.Connection:Disconnect()
-    end
 end
 
 function InfinityStamina.Start()
@@ -4238,27 +3969,10 @@ local UIState = {
 Menu.Container("Main", "Auto Generator", "Left")
 Menu.Container("Main", "Auto Barricade", "Right")
 Menu.Container("Main", "Auto Shake", "Left")
-Menu.Container("Main", "Auto Escape", "Right")
-Menu.Container("Main", "Anti Trap", "Left")
-Menu.Container("Main", "Instant Interact", "Right")
+Menu.Container("Main", "Anti Trap", "Right")
 Menu.Container("Main", "Full Bright", "Left")
-Menu.Container("Main", "Anti Cheat", "Right")
+Menu.Container("Main", "Instant Interact", "Right")
 
-Menu.CheckBox("Main", "Anti Cheat", "Bypass Anti Cheat [ Client ]", false, function(enabled)
-    if enabled then
-        BypassAntiCheat.Start()
-    else
-        BypassAntiCheat.Stop()
-    end
-end, "Check all, system anti cheat to bypass")
-
-Menu.CheckBox("Main", "Auto Escape", "Auto Escape [ Not Legit ]", false, function(enabled)
-    if enabled then
-        AutoEscape.Start()
-    else
-        AutoEscape.Stop()
-    end
-end, "Automatically does teleport to exit door")
 
 Menu.CheckBox("Main", "Auto Generator", "Auto Generator", false, function(enabled)
     if enabled then
@@ -4268,7 +3982,7 @@ Menu.CheckBox("Main", "Auto Generator", "Auto Generator", false, function(enable
     end
 end, "Automatically does generator tasks")
 
-Menu.Slider("Main", "Auto Generator", "Delay", 5, 7, 0.7, "sec", 1, function(value)
+Menu.Slider("Main", "Auto Generator", "Delay", 0.7, 7, 0.7, "sec", 1, function(value)
     AutoGenerator.SetDelay(value)
 end, "Delay before sending event")
 
@@ -4282,21 +3996,13 @@ Menu.CheckBox("Main", "Auto Barricade", "Auto Barricade", false, function(enable
 end, "Forces barricading dot in the middle")
 
 
-Menu.CheckBox("Main", "Auto Shake", "Auto Shake [ Legit ]", false, function(enabled)
+Menu.CheckBox("Main", "Auto Shake", "Auto Shake", false, function(enabled)
     if enabled then
         AutoShake.Start()
     else
         AutoShake.Stop()
     end
 end, "Automatically shakes camera when WireyesUI appears")
-
-Menu.CheckBox("Main", "Auto Shake", "Auto Shake [ Not Legit ]", false, function(enabled)
-    if enabled then
-        AutoShake2.Start()
-    else
-        AutoShake2.Stop()
-    end
-end, "Automatically fire remote to WireyesUI appears")
 
 
 Menu.CheckBox("Main", "Anti Trap", "Anti Springtrap Traps", false, function(enabled)
@@ -4587,21 +4293,13 @@ Menu.Slider("Player", "Ennard", "Stab Speed", 0, 10, 1, "studs/s", 1, function(v
 end, "Speed of stab boost")
 
 
-Menu.CheckBox("Player", "Stamina", "Infinity Stamina [ Auto Run ]", false, function(enabled)
+Menu.CheckBox("Player", "Stamina", "Infinity Stamina", false, function(enabled)
     if enabled then
         InfinityStamina.Start()
     else
         InfinityStamina.Stop()
     end
 end, "Infinite stamina (only in ALIVE)")
-
-Menu.CheckBox("Player", "Stamina", "Infinity Stamina [ Legit ]", false, function(enabled)
-    if enabled then
-        InfinityStamina2.Start()
-    else
-        InfinityStamina2.Stop()
-    end
-end, "Infinite stamina (only in killer & alive)")
 
 
 Menu.Container("Visuals", "ESP", "Left")
