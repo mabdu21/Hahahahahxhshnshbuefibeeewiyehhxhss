@@ -1,3 +1,8 @@
+
+--[[ 
+กฟกฟหกฟหกกฟหก
+]]
+
 local ConfigSystem = {}
 local configs = {}
 local configFolderName = "DYHUB"
@@ -3475,11 +3480,13 @@ if isMobile then
     MobileStroke.Transparency = 0.4
     MobileStroke.Parent = MobileButton
     
-    local MobileIcon = Instance.new("ImageLabel")
+    local MobileIcon = Instance.new("TextLabel")
     MobileIcon.Size = UDim2.new(1, 0, 1, 0)
     MobileIcon.BackgroundTransparency = 1
-    MobileIcon.Image = "rbxassetid://104487529937663"
-    MobileIcon.ScaleType = Enum.ScaleType.Fit
+    MobileIcon.Text = "D"
+    MobileIcon.TextColor3 = Color3.new(1, 1, 1)
+    MobileIcon.TextScaled = true
+    MobileIcon.Font = Enum.Font.GothamBold
     MobileIcon.Parent = MobileButton
     
     local MobileInteract = Instance.new("TextButton")
@@ -3544,10 +3551,10 @@ if isMobile then
     
     Menu:OnVisibilityChanged(function(visible)
         if visible then
-            MobileIcon.Image = "rbxassetid://104487529937663" -- ใส่รูปปิด (X) ถ้ามี
+            MobileIcon.Text = "D"
             TweenService:Create(MobileButton, TweenInfo.new(0.15), {BackgroundTransparency = 0.35}):Play()
         else
-            MobileIcon.Image = "rbxassetid://104487529937663" -- ใส่รูปเมนู (≡)
+            MobileIcon.Text = "D"
             TweenService:Create(MobileButton, TweenInfo.new(0.15), {BackgroundTransparency = 0.15}):Play()
         end
     end)
