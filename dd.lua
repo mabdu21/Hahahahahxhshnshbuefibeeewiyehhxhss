@@ -4464,7 +4464,7 @@ end)
 
 
 local uiScaleOptions = {"50%", "70%", "75%", "100%", "115%", "150%", "200%"}
-local defaultScale = Menu.IsMobile and "70%" or "100%"
+local defaultScale = Menu.IsMobile and "100%" or "70%"
 local uiScaleDropdown = Menu.ComboBox("Settings", "Menu", "UI Scale", defaultScale, uiScaleOptions, function(value)
     local cleanValue = string.gsub(value, "%%", "")
     local scaleNum = tonumber(cleanValue)
@@ -4475,7 +4475,7 @@ end)
 
 
 Menu.Button("Settings", "Menu", "Reset UI Scale", function()
-    local defaultSize = Menu.IsMobile and 70 or 100
+    local defaultSize = Menu.IsMobile and 100 or 70
     if Menu.SetUIScale then
         Menu:SetUIScale(defaultSize)
     end
@@ -4564,7 +4564,7 @@ if UIState.WatermarkUI then
 end
 
 
-local titleText = "DYHUB | Bite By Night | by dyumra"
+local titleText = "DYHUB | Bite By Night | dsc.gg/dyhub | Upg by dyumra"
 local animatedTitle = ""
 local titleIndex = 1
 local isDeleting = false
