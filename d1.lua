@@ -1,10 +1,24 @@
 if _G.BBNScriptLoaded then
-    warn("[BBN] Script was already executed!")
+    warn("[BBN] Script was already executed! | V231")
     return
 end
 _G.BBNScriptLoaded = true
 
--- 22
+repeat task.wait() until game:IsLoaded()
+
+local vu = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:Connect(function()
+    vu:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+    task.wait(67)
+    vu:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+end)
+
+if setfpscap then
+    setfpscap(1000000)
+    SafeNotify("<font color='#FF0000'>[ DYHUB ]</font> — Anti AFK Enabled & FPS Unlocked!", 5)
+else
+    SafeNotify("<font color='#FF0000'>[ DYHUB ]</font> — Anti AFK Enabled but setfpscap is missing.", 5)
+end
 
 local UI_URL = "https://raw.githubusercontent.com/mabdu21/Hahahahahxhshnshbuefibeeewiyehhxhss/refs/heads/main/lib.lua"
 local Menu = loadstring(game:HttpGet(UI_URL))()
