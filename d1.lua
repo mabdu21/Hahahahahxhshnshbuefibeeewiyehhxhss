@@ -1,4 +1,4 @@
--- v318
+-- 231
 
 if _G.BBNScriptLoaded then
     warn("[BBN] Script was already executed!")
@@ -6,7 +6,8 @@ if _G.BBNScriptLoaded then
 end
 _G.BBNScriptLoaded = true
 
-repeat task.wait() until game:IsLoaded()
+local UI_URL = "https://raw.githubusercontent.com/mabdu21/Hahahahahxhshnshbuefibeeewiyehhxhss/refs/heads/main/lib.lua"
+local Menu = loadstring(game:HttpGet(UI_URL))()
 
 local vu = game:GetService("VirtualUser")
 game:GetService("Players").LocalPlayer.Idled:Connect(function()
@@ -21,10 +22,6 @@ if setfpscap then
 else
     SafeNotify("<font color='#FF0000'>[ DYHUB ]</font> — Anti AFK Enabled but setfpscap is missing.", 5)
 end
-
-local UI_URL = "https://raw.githubusercontent.com/mabdu21/Hahahahahxhshnshbuefibeeewiyehhxhss/refs/heads/main/lib.lua"
-local Menu = loadstring(game:HttpGet(UI_URL))()
-
 
 local ConfigWasLoaded = false
 if Menu.Config and Menu.Config.setCurrentConfig then
@@ -4877,7 +4874,7 @@ if UIState.WatermarkUI then
 end
 
 
-local titleText = "DYHUB | Bite By Night | dsc.gg/dyhub | by dyumra | v3.1.6"
+local titleText = "DYHUB | Bite By Night | by dyumra"
 local animatedTitle = ""
 local titleIndex = 1
 local isDeleting = false
