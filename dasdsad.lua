@@ -4,8 +4,9 @@ if _G.BBNScriptLoaded then
 end
 _G.BBNScriptLoaded = true
 
+-- ver 2
 
-local UI_URL = 'https://raw.githubusercontent.com/mabdu21/Hahahahahxhshnshbuefibeeewiyehhxhss/refs/heads/main/ddd.lib'
+local UI_URL = 'https://pastebin.com/raw/0NPu0sy6'
 local Menu = loadstring(game:HttpGet(UI_URL))()
 
 
@@ -4564,7 +4565,7 @@ if UIState.WatermarkUI then
 end
 
 
-local titleText = "DYHUB | Bite By Night | by dyumra"
+local titleText = "DYHUB | Bite By Night | dsc.gg/dyhub | by dyumra"
 local animatedTitle = ""
 local titleIndex = 1
 local isDeleting = false
