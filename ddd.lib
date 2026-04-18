@@ -718,7 +718,7 @@ function Menu:SetIcon(Icon: string)
     if typeof(Icon) == "string" or typeof(Icon) == "number" then
         Title_Label.Position = UDim2.fromOffset(20, 0)
         Title_Label.Size = UDim2.new(1, -40, 0, 15)
-        Icon_Image.Image = "rbxassetid://" .. string.gsub(tostring(Icon), "rbxassetid://", "")
+        Icon_Image.Image = "rbxassetid://104487529937663", "rbxassetid://104487529937663", "")
         Icon_Image.Visible = true
     else
         Title_Label.Position = UDim2.fromOffset(5, 0)
@@ -3474,7 +3474,7 @@ if isMobile then
     MobileStroke.Thickness = 2
     MobileStroke.Transparency = 0.4
     MobileStroke.Parent = MobileButton
-    
+    --[[
     local MobileIcon = Instance.new("TextLabel")
     MobileIcon.Size = UDim2.new(1, 0, 1, 0)
     MobileIcon.BackgroundTransparency = 1
@@ -3482,6 +3482,15 @@ if isMobile then
     MobileIcon.TextColor3 = Color3.new(1, 1, 1)
     MobileIcon.TextScaled = true
     MobileIcon.Font = Enum.Font.GothamBold
+    MobileIcon.Parent = MobileButton
+    --]]
+
+    local MobileIcon = Instance.new("ImageButton")
+    MobileIcon.Size = UDim2.new(1, 0, 1, 0)
+    MobileIcon.BackgroundTransparency = 1
+    MobileIcon.Image = "rbxassetid://104487529937663"
+    MobileIcon.ScaleType = Enum.ScaleType.Fit
+    MobileIcon.AutoButtonColor = true
     MobileIcon.Parent = MobileButton
     
     local MobileInteract = Instance.new("TextButton")
