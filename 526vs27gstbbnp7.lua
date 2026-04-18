@@ -1,5 +1,5 @@
 -- ==========================================
--- Test V578
+-- Test V579
 -- ==========================================
 
 local version = "2.1.9"
@@ -1270,7 +1270,6 @@ end
 
 function AutoBlock.Start()
     AutoBlock.Enabled = true
-    SafeNotify("[ Auto Block ] Enabled", 2)
 
     AutoBlock.InitializeSoundHooks()
 
@@ -1315,7 +1314,6 @@ end
 
 function AutoBlock.Stop()
     AutoBlock.Enabled = false
-    SafeNotify("[ Auto Block ] Disabled", 2)
 
     if AutoBlock.Connection then
         AutoBlock.Connection:Disconnect()
