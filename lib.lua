@@ -3483,6 +3483,10 @@ if isMobile then
     MobileIcon.Image = "rbxassetid://104487529937663"
     MobileIcon.ScaleType = Enum.ScaleType.Fit
     MobileIcon.Parent = MobileButton 
+
+    local MobileCorner2 = Instance.new("UICorner")
+    MobileCorner2.CornerRadius = UDim.new(0, 12)
+    MobileCorner2.Parent = MobileIcon
     
     local MobileInteract = Instance.new("TextButton")
     MobileInteract.Size = UDim2.new(1, 0, 1, 0)
