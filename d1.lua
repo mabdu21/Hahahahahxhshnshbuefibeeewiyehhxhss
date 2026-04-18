@@ -4,8 +4,9 @@ if _G.BBNScriptLoaded then
 end
 _G.BBNScriptLoaded = true
 
+-- 22
 
-local UI_URL = 'https://pastebin.com/raw/0NPu0sy6'
+local UI_URL = "https://raw.githubusercontent.com/mabdu21/Hahahahahxhshnshbuefibeeewiyehhxhss/refs/heads/main/lib.lua"
 local Menu = loadstring(game:HttpGet(UI_URL))()
 
 
