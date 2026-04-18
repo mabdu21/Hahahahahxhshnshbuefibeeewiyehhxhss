@@ -521,7 +521,7 @@ Icon_Image.Name = "Icon"
 Icon_Image.BackgroundTransparency = 1
 Icon_Image.Position = UDim2.new(0, 5, 0, 0)
 Icon_Image.Size = UDim2.fromOffset(15, 15)
-Icon_Image.Image = "rbxassetid://104487529937663"
+Icon_Image.Image = "rbxassetid://0"
 Icon_Image.Visible = false
 Icon_Image.Parent = Menu_Frame
 
@@ -718,7 +718,7 @@ function Menu:SetIcon(Icon: string)
     if typeof(Icon) == "string" or typeof(Icon) == "number" then
         Title_Label.Position = UDim2.fromOffset(20, 0)
         Title_Label.Size = UDim2.new(1, -40, 0, 15)
-        Icon_Image.Image = "rbxassetid://104487529937663", "rbxassetid://104487529937663", "")
+        Icon_Image.Image = "rbxassetid://" .. string.gsub(tostring(Icon), "rbxassetid://", "")
         Icon_Image.Visible = true
     else
         Title_Label.Position = UDim2.fromOffset(5, 0)
@@ -3041,7 +3041,7 @@ function Menu:Init()
     
     
     task.delay(0.5, function()
-        Menu.Notify("<font color='##A6BAFF'>[ Evolution Hub ]</font> — Loaded Successfully | Config Auto-Save Enabled", 5)
+        Menu.Notify("<font color='##A6BAFF'>[ DYHUB ]</font> — Loaded Successfully | Config Auto-Save Enabled", 5)
     end)
     
     UserInput.InputBegan:Connect(function(Input: InputObject, Process: boolean) end)
@@ -3110,7 +3110,7 @@ local DYHUB = {}
 
 function DYHUB:CreateWindow(options)
     options = options or {}
-    local name = options.Name or "Evolution Hub"
+    local name = options.Name or "DYHUB"
     local loadingTitle = options.LoadingTitle or "Loading..."
     local loadingSubtitle = options.LoadingSubtitle or ""
     local toggleKey = options.ToggleKey or Enum.KeyCode.RightShift
@@ -3474,23 +3474,12 @@ if isMobile then
     MobileStroke.Thickness = 2
     MobileStroke.Transparency = 0.4
     MobileStroke.Parent = MobileButton
-    --[[
-    local MobileIcon = Instance.new("TextLabel")
-    MobileIcon.Size = UDim2.new(1, 0, 1, 0)
-    MobileIcon.BackgroundTransparency = 1
-    MobileIcon.Text = "☰"
-    MobileIcon.TextColor3 = Color3.new(1, 1, 1)
-    MobileIcon.TextScaled = true
-    MobileIcon.Font = Enum.Font.GothamBold
-    MobileIcon.Parent = MobileButton
-    --]]
-
-    local MobileIcon = Instance.new("ImageButton")
+    
+    local MobileIcon = Instance.new("ImageLabel")
     MobileIcon.Size = UDim2.new(1, 0, 1, 0)
     MobileIcon.BackgroundTransparency = 1
     MobileIcon.Image = "rbxassetid://104487529937663"
     MobileIcon.ScaleType = Enum.ScaleType.Fit
-    MobileIcon.AutoButtonColor = true
     MobileIcon.Parent = MobileButton
     
     local MobileInteract = Instance.new("TextButton")
@@ -3555,10 +3544,10 @@ if isMobile then
     
     Menu:OnVisibilityChanged(function(visible)
         if visible then
-            MobileIcon.Text = "✕"
+            MobileIcon.Image = "rbxassetid://104487529937663" -- ใส่รูปปิด (X) ถ้ามี
             TweenService:Create(MobileButton, TweenInfo.new(0.15), {BackgroundTransparency = 0.35}):Play()
         else
-            MobileIcon.Text = "☰"
+            MobileIcon.Image = "rbxassetid://104487529937663" -- ใส่รูปเมนู (≡)
             TweenService:Create(MobileButton, TweenInfo.new(0.15), {BackgroundTransparency = 0.15}):Play()
         end
     end)
