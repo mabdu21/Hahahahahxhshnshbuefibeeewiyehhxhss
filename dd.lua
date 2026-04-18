@@ -1,34 +1,27 @@
-
---[[ 
-    Coded with love by Serl1cia ♥
-    U can use this source however you want - I don’t really care anymore
-    Rewrite coming soon! (trust)
-]]
-
-if _G.BBTScriptLoaded then
-    warn("[BBT] Script was already executed!")
+if _G.BBNScriptLoaded then
+    warn("[BBN] Script was already executed!")
     return
 end
-_G.BBTScriptLoaded = true
+_G.BBNScriptLoaded = true
 
 
-local UI_URL = 'https://pastebin.com/raw/0NPu0sy6'
+local UI_URL = 'https://raw.githubusercontent.com/mabdu21/Hahahahahxhshnshbuefibeeewiyehhxhss/refs/heads/main/ddd.lib'
 local Menu = loadstring(game:HttpGet(UI_URL))()
 
 
 local ConfigWasLoaded = false
 if Menu.Config and Menu.Config.setCurrentConfig then
-    Menu.Config.setCurrentConfig("bbtevohub")
+    Menu.Config.setCurrentConfig("BBNDYHUB")
 end
 if Menu.Config and Menu.Config.loadConfig then
-    ConfigWasLoaded = Menu.Config.loadConfig("bbtevohub")
-    warn("[BBT] Config loaded: " .. tostring(ConfigWasLoaded))
+    ConfigWasLoaded = Menu.Config.loadConfig("BBNDYHUB")
+    warn("[BBN] Config loaded: " .. tostring(ConfigWasLoaded))
 else
-    warn("[BBT] Config system not available in loaded UI version!")
+    warn("[BBN] Config system not available in loaded UI version!")
 end
 
 
-local DefaultAccentColor = Color3.fromHex("#A6BAFF")
+local DefaultAccentColor = Color3.fromHex("#FF0000")
 if ConfigWasLoaded and Menu.Config and Menu.Config.getConfigValue then
     local savedColorHex = Menu.Config.getConfigValue("UIColor")
     if savedColorHex and type(savedColorHex) == "string" then
@@ -54,8 +47,8 @@ function SafeNotify(content, delay)
     end
     if Menu.Accent then
         local accentHex = "#" .. Menu.Accent:ToHex():upper()
-        content = content:gsub("#A6BAFF", accentHex)
-        content = content:gsub("#a6baff", accentHex)
+        content = content:gsub("#FF0000", accentHex)
+        content = content:gsub("#FF0000", accentHex)
     end
     Menu.Notify(content, delay)
 end
@@ -63,7 +56,7 @@ end
 
 local AutoGenerator = {
     Enabled = false,
-    Delay = 0,
+    Delay = 5,
     Connection = nil,
     LastFireTime = 0
 }
@@ -71,7 +64,7 @@ local AutoGenerator = {
 function AutoGenerator.Start()
     AutoGenerator.Enabled = true
     AutoGenerator.LastFireTime = 0
-    SafeNotify("<font color='#A6BAFF'>[ Auto Generator ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Auto Generator ]</font> Enabled!", 2)
     
     if AutoGenerator.Connection then
         AutoGenerator.Connection:Disconnect()
@@ -103,7 +96,7 @@ end
 
 function AutoGenerator.Stop()
     AutoGenerator.Enabled = false
-    SafeNotify("<font color='#A6BAFF'>[ Auto Generator ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Auto Generator ]</font> Disabled!", 2)
     
     if AutoGenerator.Connection then
         AutoGenerator.Connection:Disconnect()
@@ -123,7 +116,7 @@ local AutoBarricade = {
 
 function AutoBarricade.Start()
     AutoBarricade.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Auto Barricade ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Auto Barricade ]</font> Enabled!", 2)
     
     if AutoBarricade.Connection then
         AutoBarricade.Connection:Disconnect()
@@ -156,7 +149,7 @@ end
 
 function AutoBarricade.Stop()
     AutoBarricade.Enabled = false
-    SafeNotify("<font color='#A6BAFF'>[ Auto Barricade ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Auto Barricade ]</font> Disabled!", 2)
     
     if AutoBarricade.Connection then
         AutoBarricade.Connection:Disconnect()
@@ -177,7 +170,7 @@ local AutoShake = {
 
 function AutoShake.Start()
     AutoShake.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Auto Shake ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Auto Shake ]</font> Enabled!", 2)
     
     if AutoShake.Connection then
         AutoShake.Connection:Disconnect()
@@ -229,7 +222,7 @@ end
 
 function AutoShake.Stop()
     AutoShake.Enabled = false
-    SafeNotify("<font color='#A6BAFF'>[ Auto Shake ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Auto Shake ]</font> Disabled!", 2)
     
     if AutoShake.Connection then
         AutoShake.Connection:Disconnect()
@@ -311,7 +304,7 @@ end
 
 function AntiTrap.Start()
     AntiTrap.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Anti Springtrap Traps ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Anti Springtrap Traps ]</font> Enabled!", 2)
     
     
     local ignore = workspace:FindFirstChild("IGNORE")
@@ -369,7 +362,7 @@ end
 
 function AntiTrap.Stop()
     AntiTrap.Enabled = false
-    SafeNotify("<font color='#A6BAFF'>[ Anti Springtrap Traps ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Anti Springtrap Traps ]</font> Disabled!", 2)
     
     
     for trap, blockPart in pairs(AntiTrap.BlockParts) do
@@ -492,7 +485,7 @@ end
 
 function InfinityStamina.Start()
     InfinityStamina.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Infinity Stamina ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Infinity Stamina ]</font> Enabled!", 2)
     
     if InfinityStamina.Connection then
         InfinityStamina.Connection:Disconnect()
@@ -530,7 +523,7 @@ end
 
 function InfinityStamina.Stop()
     InfinityStamina.Enabled = false
-    SafeNotify("<font color='#A6BAFF'>[ Infinity Stamina ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Infinity Stamina ]</font> Disabled!", 2)
     
     if InfinityStamina.Connection then
         InfinityStamina.Connection:Disconnect()
@@ -763,7 +756,7 @@ end
 
 function TazerAimbot.Start()
     TazerAimbot.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Tazer Aimbot ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Tazer Aimbot ]</font> Enabled!", 2)
     
     if TazerAimbot.Connection then
         TazerAimbot.Connection:Disconnect()
@@ -776,7 +769,7 @@ function TazerAimbot.Stop()
     TazerAimbot.Enabled = false
     TazerAimbot.KeybindActive = false
     TazerAimbot.StopAiming()
-    SafeNotify("<font color='#A6BAFF'>[ Tazer Aimbot ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Tazer Aimbot ]</font> Disabled!", 2)
     
     if TazerAimbot.Connection then
         TazerAimbot.Connection:Disconnect()
@@ -1038,7 +1031,7 @@ end
 
 function AxeAimbot.Start()
     AxeAimbot.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Axe Aimbot ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Axe Aimbot ]</font> Enabled!", 2)
     
     if AxeAimbot.Connection then
         AxeAimbot.Connection:Disconnect()
@@ -1051,7 +1044,7 @@ function AxeAimbot.Stop()
     AxeAimbot.Enabled = false
     AxeAimbot.KeybindActive = false
     AxeAimbot.StopAiming()
-    SafeNotify("<font color='#A6BAFF'>[ Axe Aimbot ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Axe Aimbot ]</font> Disabled!", 2)
     
     if AxeAimbot.Connection then
         AxeAimbot.Connection:Disconnect()
@@ -1120,7 +1113,7 @@ end
 
 function ChargeBoost.Start()
     ChargeBoost.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Charge Distance Increase ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Charge Distance Increase ]</font> Enabled!", 2)
     
     if ChargeBoost.Connection then
         ChargeBoost.Connection:Disconnect()
@@ -1164,7 +1157,7 @@ end
 function ChargeBoost.Stop()
     ChargeBoost.Enabled = false
     ChargeBoost.IsCharging = false
-    SafeNotify("<font color='#A6BAFF'>[ Charge Distance Increase ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Charge Distance Increase ]</font> Disabled!", 2)
     
     if ChargeBoost.Connection then
         ChargeBoost.Connection:Disconnect()
@@ -1337,7 +1330,7 @@ end
 
 function GrabAimbot.Start()
     GrabAimbot.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Grab Aimbot ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Grab Aimbot ]</font> Enabled!", 2)
     
     if GrabAimbot.Connection then
         GrabAimbot.Connection:Disconnect()
@@ -1350,7 +1343,7 @@ function GrabAimbot.Stop()
     GrabAimbot.Enabled = false
     GrabAimbot.KeybindActive = false
     GrabAimbot.StopAiming()
-    SafeNotify("<font color='#A6BAFF'>[ Grab Aimbot ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Grab Aimbot ]</font> Disabled!", 2)
     
     if GrabAimbot.Connection then
         GrabAimbot.Connection:Disconnect()
@@ -1412,7 +1405,7 @@ end
 
 function GrabBoost.Start()
     GrabBoost.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Grab Distance Increase ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Grab Distance Increase ]</font> Enabled!", 2)
     
     if GrabBoost.Connection then
         GrabBoost.Connection:Disconnect()
@@ -1462,7 +1455,7 @@ end
 function GrabBoost.Stop()
     GrabBoost.Enabled = false
     GrabBoost.IsGrabbing = false
-    SafeNotify("<font color='#A6BAFF'>[ Grab Distance Increase ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Grab Distance Increase ]</font> Disabled!", 2)
     
     if GrabBoost.Connection then
         GrabBoost.Connection:Disconnect()
@@ -1626,7 +1619,7 @@ end
 
 function SwingAimbot.Start()
     SwingAimbot.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Swing Aimbot ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Swing Aimbot ]</font> Enabled!", 2)
     
     if SwingAimbot.Connection then
         SwingAimbot.Connection:Disconnect()
@@ -1639,7 +1632,7 @@ function SwingAimbot.Stop()
     SwingAimbot.Enabled = false
     SwingAimbot.KeybindActive = false
     SwingAimbot.StopAiming()
-    SafeNotify("<font color='#A6BAFF'>[ Swing Aimbot ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Swing Aimbot ]</font> Disabled!", 2)
     
     if SwingAimbot.Connection then
         SwingAimbot.Connection:Disconnect()
@@ -1699,7 +1692,7 @@ end
 
 function SwingBoost.Start()
     SwingBoost.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Swing Distance Increase ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Swing Distance Increase ]</font> Enabled!", 2)
     
     if SwingBoost.Connection then
         SwingBoost.Connection:Disconnect()
@@ -1743,7 +1736,7 @@ end
 function SwingBoost.Stop()
     SwingBoost.Enabled = false
     SwingBoost.IsSwinging = false
-    SafeNotify("<font color='#A6BAFF'>[ Swing Distance Increase ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Swing Distance Increase ]</font> Disabled!", 2)
     
     if SwingBoost.Connection then
         SwingBoost.Connection:Disconnect()
@@ -1809,7 +1802,7 @@ end
 
 function HideBlockAnimation.Start()
     HideBlockAnimation.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Hide Block Animation ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Hide Block Animation ]</font> Enabled!", 2)
     
     if HideBlockAnimation.Connection then
         HideBlockAnimation.Connection:Disconnect()
@@ -1836,7 +1829,7 @@ end
 
 function HideBlockAnimation.Stop()
     HideBlockAnimation.Enabled = false
-    SafeNotify("<font color='#A6BAFF'>[ Hide Block Animation ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Hide Block Animation ]</font> Disabled!", 2)
     
     if HideBlockAnimation.Connection then
         HideBlockAnimation.Connection:Disconnect()
@@ -2118,7 +2111,7 @@ end
 
 function AutoBlock.Start()
     AutoBlock.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Auto Block ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Auto Block ]</font> Enabled!", 2)
     
     
     AutoBlock.InitializeSoundHooks()
@@ -2192,7 +2185,7 @@ end
 
 function AutoBlock.Stop()
     AutoBlock.Enabled = false
-    SafeNotify("<font color='#A6BAFF'>[ Auto Block ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Auto Block ]</font> Disabled!", 2)
     
     if AutoBlock.Connection then
         AutoBlock.Connection:Disconnect()
@@ -2357,7 +2350,7 @@ end
 
 function EnnardGrabAimbot.Start()
     EnnardGrabAimbot.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Ennard Grab Aimbot ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Ennard Grab Aimbot ]</font> Enabled!", 2)
     
     if EnnardGrabAimbot.Connection then
         EnnardGrabAimbot.Connection:Disconnect()
@@ -2370,7 +2363,7 @@ function EnnardGrabAimbot.Stop()
     EnnardGrabAimbot.Enabled = false
     EnnardGrabAimbot.KeybindActive = false
     EnnardGrabAimbot.StopAiming()
-    SafeNotify("<font color='#A6BAFF'>[ Ennard Grab Aimbot ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Ennard Grab Aimbot ]</font> Disabled!", 2)
     
     if EnnardGrabAimbot.Connection then
         EnnardGrabAimbot.Connection:Disconnect()
@@ -2536,7 +2529,7 @@ end
 
 function EnnardStabAimbot.Start()
     EnnardStabAimbot.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Ennard Stab Aimbot ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Ennard Stab Aimbot ]</font> Enabled!", 2)
     
     if EnnardStabAimbot.Connection then
         EnnardStabAimbot.Connection:Disconnect()
@@ -2549,7 +2542,7 @@ function EnnardStabAimbot.Stop()
     EnnardStabAimbot.Enabled = false
     EnnardStabAimbot.KeybindActive = false
     EnnardStabAimbot.StopAiming()
-    SafeNotify("<font color='#A6BAFF'>[ Ennard Stab Aimbot ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Ennard Stab Aimbot ]</font> Disabled!", 2)
     
     if EnnardStabAimbot.Connection then
         EnnardStabAimbot.Connection:Disconnect()
@@ -2595,7 +2588,7 @@ end
 
 function EnnardStabBoost.Start()
     EnnardStabBoost.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Ennard Stab Distance Increase ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Ennard Stab Distance Increase ]</font> Enabled!", 2)
     
     if EnnardStabBoost.Connection then
         EnnardStabBoost.Connection:Disconnect()
@@ -2629,7 +2622,7 @@ end
 function EnnardStabBoost.Stop()
     EnnardStabBoost.Enabled = false
     EnnardStabBoost.IsStabbing = false
-    SafeNotify("<font color='#A6BAFF'>[ Ennard Stab Distance Increase ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Ennard Stab Distance Increase ]</font> Disabled!", 2)
     
     if EnnardStabBoost.Connection then
         EnnardStabBoost.Connection:Disconnect()
@@ -2778,13 +2771,13 @@ function ESP.AddSurvivor(model)
     
     
     for _, child in ipairs(model:GetChildren()) do
-        if child:IsA("Highlight") and child.Name ~= "BBT_Highlight" then
+        if child:IsA("Highlight") and child.Name ~= "BBN_Highlight" then
             child:Destroy()
         end
     end
     
     local highlight = ESP.CreateHighlight(model, Color3.fromRGB(0, 255, 100))
-    highlight.Name = "BBT_Highlight"
+    highlight.Name = "BBN_Highlight"
     local nameLabel = ESP.CreateTextLabel(model.Name, Color3.fromRGB(255, 255, 255))
     local styleLabel = ESP.CreateTextLabel("Unknown", Color3.fromRGB(255, 255, 255))
     local hpLabel = ESP.CreateTextLabel("100 HP", Color3.fromRGB(0, 255, 100))
@@ -2818,7 +2811,7 @@ function ESP.UpdateSurvivor(cache)
     
     
     for _, child in ipairs(cache.model:GetChildren()) do
-        if child:IsA("Highlight") and child.Name ~= "BBT_Highlight" then
+        if child:IsA("Highlight") and child.Name ~= "BBN_Highlight" then
             child:Destroy()
         end
     end
@@ -2826,7 +2819,7 @@ function ESP.UpdateSurvivor(cache)
     
     if not cache.highlight or not cache.highlight.Parent then
         cache.highlight = ESP.CreateHighlight(cache.model, Color3.fromRGB(0, 255, 100))
-        cache.highlight.Name = "BBT_Highlight"
+        cache.highlight.Name = "BBN_Highlight"
     end
     
     local head = cache.model:FindFirstChild("Head")
@@ -2903,7 +2896,7 @@ end
 
 function ESP.StartSurvivors()
     ESP.Survivors.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Survivor ESP ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Survivor ESP ]</font> Enabled!", 2)
     
     local alive = workspace:FindFirstChild("PLAYERS")
     if alive then alive = alive:FindFirstChild("ALIVE") end
@@ -2931,7 +2924,7 @@ end
 
 function ESP.StopSurvivors()
     ESP.Survivors.Enabled = false
-    SafeNotify("<font color='#A6BAFF'>[ Survivor ESP ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Survivor ESP ]</font> Disabled!", 2)
     
     for model, cache in pairs(ESP.Survivors.Cache) do
         ESP.RemoveSurvivor(model)
@@ -3050,7 +3043,7 @@ end
 
 function ESP.StartKillers()
     ESP.Killers.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Killer ESP ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Killer ESP ]</font> Enabled!", 2)
     
     local killers = workspace:FindFirstChild("PLAYERS")
     if killers then killers = killers:FindFirstChild("KILLER") end
@@ -3078,7 +3071,7 @@ end
 
 function ESP.StopKillers()
     ESP.Killers.Enabled = false
-    SafeNotify("<font color='#A6BAFF'>[ Killer ESP ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Killer ESP ]</font> Disabled!", 2)
     
     for model, cache in pairs(ESP.Killers.Cache) do
         ESP.RemoveKiller(model)
@@ -3183,7 +3176,7 @@ end
 
 function ESP.StartGenerators()
     ESP.Generators.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Generator ESP ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Generator ESP ]</font> Enabled!", 2)
     
     
     local maps = workspace:FindFirstChild("MAPS")
@@ -3226,7 +3219,7 @@ end
 
 function ESP.StopGenerators()
     ESP.Generators.Enabled = false
-    SafeNotify("<font color='#A6BAFF'>[ Generator ESP ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Generator ESP ]</font> Disabled!", 2)
     
     for model, cache in pairs(ESP.Generators.Cache) do
         ESP.RemoveGenerator(model)
@@ -3305,7 +3298,7 @@ end
 
 function ESP.StartTraps()
     ESP.Traps.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Trap ESP ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Trap ESP ]</font> Enabled!", 2)
     
     local ignore = workspace:FindFirstChild("IGNORE")
     if not ignore then return end
@@ -3335,7 +3328,7 @@ end
 
 function ESP.StopTraps()
     ESP.Traps.Enabled = false
-    SafeNotify("<font color='#A6BAFF'>[ Trap ESP ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Trap ESP ]</font> Disabled!", 2)
     
     for model, cache in pairs(ESP.Traps.Cache) do
         ESP.RemoveTrap(model)
@@ -3389,7 +3382,7 @@ end
 
 function ESP.StartBatteries()
     ESP.Batteries.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Battery ESP ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Battery ESP ]</font> Enabled!", 2)
     
     
     local checkConn = RunService.Heartbeat:Connect(function()
@@ -3426,7 +3419,7 @@ end
 
 function ESP.StopBatteries()
     ESP.Batteries.Enabled = false
-    SafeNotify("<font color='#A6BAFF'>[ Battery ESP ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Battery ESP ]</font> Disabled!", 2)
     
     for obj, cache in pairs(ESP.Batteries.Cache) do
         ESP.RemoveBattery(obj)
@@ -3484,7 +3477,7 @@ end
 
 function ESP.StartMinions()
     ESP.Minions.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Minion ESP ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Minion ESP ]</font> Enabled!", 2)
     
     
     local ignore = workspace:FindFirstChild("IGNORE")
@@ -3520,7 +3513,7 @@ end
 
 function ESP.StopMinions()
     ESP.Minions.Enabled = false
-    SafeNotify("<font color='#A6BAFF'>[ Minion ESP ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Minion ESP ]</font> Disabled!", 2)
     
     for model, cache in pairs(ESP.Minions.Cache) do
         ESP.RemoveMinion(model)
@@ -3732,12 +3725,12 @@ end
 function Crosshair.Start()
     Crosshair.Enabled = true
     Crosshair.Initialize()
-    SafeNotify("<font color='#A6BAFF'>[ Crosshair ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Crosshair ]</font> Enabled!", 2)
 end
 
 function Crosshair.Stop()
     Crosshair.Enabled = false
-    SafeNotify("<font color='#A6BAFF'>[ Crosshair ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Crosshair ]</font> Disabled!", 2)
 end
 
 
@@ -3764,7 +3757,7 @@ end
 
 function FullBright.Start()
     FullBright.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Full Bright ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Full Bright ]</font> Enabled!", 2)
     
     local lighting = game:GetService("Lighting")
     
@@ -3793,7 +3786,7 @@ end
 
 function FullBright.Stop()
     FullBright.Enabled = false
-    SafeNotify("<font color='#A6BAFF'>[ Full Bright ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Full Bright ]</font> Disabled!", 2)
     
     if FullBright.Connection then
         FullBright.Connection:Disconnect()
@@ -3873,7 +3866,7 @@ end
 
 function InstantInteract.Start()
     InstantInteract.Enabled = true
-    SafeNotify("<font color='#A6BAFF'>[ Instant Interact ]</font> Enabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Instant Interact ]</font> Enabled!", 2)
     
     
     local maps = workspace:FindFirstChild("MAPS")
@@ -3939,7 +3932,7 @@ end
 
 function InstantInteract.Stop()
     InstantInteract.Enabled = false
-    SafeNotify("<font color='#A6BAFF'>[ Instant Interact ]</font> Disabled!", 2)
+    SafeNotify("<font color='#FF0000'>[ Instant Interact ]</font> Disabled!", 2)
     
     if InstantInteract.Connection then
         InstantInteract.Connection:Disconnect()
@@ -4424,7 +4417,7 @@ Menu.Hotkey("Settings", "Menu", "Toggle GUI Keybind", Enum.KeyCode.K, function(k
 end)
 
 
-local DefaultAccentColor = Color3.fromHex("#A6BAFF")
+local DefaultAccentColor = Color3.fromHex("#FF0000")
 
 
 local function LoadSavedUIColor()
@@ -4464,9 +4457,9 @@ Menu.Button("Settings", "Menu", "Reset UI Color", function()
     end
     
     if Menu.Config and Menu.Config.setConfigValue then
-        Menu.Config.setConfigValue("UIColor", "#A6BAFF")
+        Menu.Config.setConfigValue("UIColor", "#FF0000")
     end
-    SafeNotify("<font color='#A6BAFF'>[ Settings ]</font> UI Color reset to default!", 2)
+    SafeNotify("<font color='#FF0000'>[ Settings ]</font> UI Color reset to default!", 2)
 end)
 
 
@@ -4543,7 +4536,7 @@ end
 
 if UIState.WatermarkUI then
     spawn(function()
-        local wmText = "Evolution Hub"
+        local wmText = "DYHUB"
         local wmCharIndex = 0
         local wmIsDeleting = false
         while UIState.WatermarkUI do
@@ -4571,7 +4564,7 @@ if UIState.WatermarkUI then
 end
 
 
-local titleText = "Evolution Hub V3 | Bite By Night | Leaked"
+local titleText = "DYHUB | Bite By Night | by dyumra"
 local animatedTitle = ""
 local titleIndex = 1
 local isDeleting = false
@@ -4746,6 +4739,6 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
     end
 end)
 
-SafeNotify("<font color='#A6BAFF'>[ Evolution Hub ]</font> — Loaded Successfully | Config Auto-Save Enabled", 5)
+SafeNotify("<font color='#FF0000'>[ DYHUB ]</font> — Loaded Successfully | Config Auto-Save Enabled", 5)
 
-warn("[BBT] Script loaded successfully!")
+warn("[BBN] Script loaded successfully!")
