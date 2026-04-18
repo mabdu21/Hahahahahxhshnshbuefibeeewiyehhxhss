@@ -1,5 +1,7 @@
+-- v318
+
 if _G.BBNScriptLoaded then
-    warn("[BBN] Script was already executed! | V231")
+    warn("[BBN] Script was already executed!")
     return
 end
 _G.BBNScriptLoaded = true
@@ -4875,7 +4877,7 @@ if UIState.WatermarkUI then
 end
 
 
-local titleText = "DYHUB | Bite By Night | by dyumra"
+local titleText = "DYHUB | Bite By Night | dsc.gg/dyhub | by dyumra | v3.1.6"
 local animatedTitle = ""
 local titleIndex = 1
 local isDeleting = false
