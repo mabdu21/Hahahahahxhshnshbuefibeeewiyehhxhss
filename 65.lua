@@ -426,7 +426,7 @@ task.spawn(function()
     local DataCore = require(game:GetService("ReplicatedStorage").Modules.Core.Data)
 
     game.StarterGui:SetCore("SendNotification", {
-        Title = 'API SERVICES',
+        Title = 'DYHUB X HERMANOS DEV',
         Text = 'User : ' .. username,
         Duration = 25,
         Icon = 'rbxassetid://18976336309'
