@@ -1,3 +1,5 @@
+getgenv().HermanosDevSetting = _G.Kaitun
+
 repeat task.wait() until game:IsLoaded()
 repeat task.wait() until game:GetService("Players").LocalPlayer:FindFirstChild("PlayerGui")
 task.wait(3)
