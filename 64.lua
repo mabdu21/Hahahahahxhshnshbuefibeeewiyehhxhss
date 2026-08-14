@@ -1,3 +1,42 @@
+--[[
+-- สคริปนี้เป็นการร่วมมือกับ HermanosDev X DYHUB / 50% สำหรับการขายสคริปทัังหมด
+-- มีปัญหาแจ้งแอดมินได้ : dyumra.gg หรือ hermanosdev.gg
+
+_G.Kaitun = {
+    Farming = {
+        Job = firstJob, -- เลือกเอาถ้าอยากเลือก
+        Skillet = "Smart Select",
+        BuySkillet = true,
+        PaddleMode = "Nearest",
+        Mop = "Smart Select",
+        BuyMop = true,
+        HackTools = "Smart Select",
+        HackToolsQuantity = hackToolCount, -- เลือกเอาถ้าอยากเลือก
+        Rod = "Smart Select",
+        Bait = "Smart Select",
+        BaitQuantity = 10,
+        FishAmount = 10,
+        IncludeFarming = true,
+        VehicleType = usecar, -- เลือกเอา "Car", "Bike"
+        VehicleSpeed = 52,
+        AutoFarm = true,
+        AfkChecker = true,
+        CashDeposit = 200,
+        AutoDeposit = true
+    },
+
+    General = {
+        HideName = true,
+        AntiRagdoll = true,
+        AntiKill = true,
+        AutoRespawn = true,
+    },
+}
+
+[Script]
+
+]]
+
 getgenv().HermanosDevSetting = _G.Kaitun
 
 repeat task.wait() until game:IsLoaded()
